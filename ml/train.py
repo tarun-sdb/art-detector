@@ -55,13 +55,13 @@ def main():
     for ep in range(args.epochs):
         model.train()
         for x, y in tr:
-            x, y = x.to(dev), y.float().unsqueeze(1).to(dev)
+            x, y = x.to(dev), (1 - y.float()).unsqueeze(1).to(dev)  # 1=fake (ImageFolder: fake=0, real=1)
             opt.zero_grad(); loss_fn(model(x), y).backward(); opt.step()
         # val
         model.eval(); ps, ys = [], []
         with torch.no_grad():
             for x, y in va:
-                ps += torch.sigmoid(model(x.to(dev))).cpu().flatten().tolist(); ys += y.tolist()
+                ps += torch.sigmoid(model(x.to(dev))).cpu().flatten().tolist(); ys += (1 - y).tolist()
         auc = roc_auc_score(ys, ps)
         print(f"epoch {ep+1}/{args.epochs} val_auc={auc:.4f}")
         if auc > best:

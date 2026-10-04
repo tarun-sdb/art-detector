@@ -6,7 +6,7 @@
   <properties>
     <java.version>17</java.version>
     <spring-boot.version>3.2.5</spring-boot.version>
-    <onnx.version>1.17.3</onnx.version>
+    <onnx.version>1.22.0</onnx.version>
   </properties>
   <dependencyManagement>
     <dependencies>
