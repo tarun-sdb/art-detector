@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ArtDetect — real vs AI (digital)</title>
+<style>body{font-family:system-ui;max-width:640px;margin:40px auto;padding:0 16px}form{border:2px dashed #888;padding:24px;text-align:center}#r{margin-top:16px;font-size:1.2em}</style>
+</head><body>
+<h1>Real vs AI — digital art</h1>
+<form id="f"><input type="file" name="file" accept="image/*" required> <button>Detect</button></form>
+<div id="r"></div>
+<script>
+f.onsubmit = async e => { e.preventDefault(); r.textContent = "…";
+  const res = await fetch("/api/predict", {method: "POST", body: new FormData(f)});
+  const j = await res.json();
+  r.textContent = res.ok ? `${j.label.toUpperCase()} (P(fake)=${j.p_fake})` : `Error: ${j.error}`;
+};
+</script>
+</body></html>

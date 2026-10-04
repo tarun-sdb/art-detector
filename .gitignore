@@ -1,0 +1,9 @@
+target/
+__pycache__/
+*.pyc
+*.pt
+data/
+.env
+.idea/
+.vscode/
+*.iml
